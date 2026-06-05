@@ -99,6 +99,7 @@ void normal_mode(FILE *fp) {
 void ten_guess(FILE *fp) {
     printf("10 guess mode\n");
     int num_correct;
+    srand(time(NULL));
     for (int i = 0; i < 10; i++) {
         int value = rand() % (2 - 1 + 1) + 1;
         printf("%d. What side will the coin land on? (Heads or Tails)\n", i+1);
@@ -144,26 +145,22 @@ void custom_guess(FILE *fp) {
     printf("Welcome to Custom Length Guess Mode\n");
     printf("How many rounds would you like to guess?\n");
     int num_correct;
-    int length;
+    int length = 0;
     scanf("%d", &length);
     while (length <= 0) {
-        printf("Please choose a positive integer\n");
         if (scanf("%d", &length) == 1 && length > 0) {
+            int i;
             break;
         }
         int i;
         while ((i = getchar()) != '\n' && i != EOF); // clears buffer
-        /*
-        scanf("%d", &length);
-        if (length > 0) {
-            break;
-        }
-        else {
-            continue;
-        }
-        */
+        length = 0;
+        printf("Please choose a positive integer\n");
     }
-    for (int i = 0; i < length; i++) {
+    int i;
+    while ((i = getchar()) != '\n' && i != EOF); // clears buffer
+    srand(time(NULL));
+    for (int i = 0; i < (int)length; i++) {
         int value = rand() % (2 - 1 + 1) + 1;
         printf("%d. What side will the coin land on? (Heads or Tails)\n", i+1);
         char guess[6];
