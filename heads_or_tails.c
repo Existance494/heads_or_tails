@@ -140,12 +140,29 @@ void ten_guess(FILE *fp) {
     _getch();
 }
 
-void hundred_guess(FILE *fp) {
+void custom_guess(FILE *fp) {
     printf("Welcome to Custom Length Guess Mode\n");
     printf("How many rounds would you like to guess?\n");
     int num_correct;
     int length;
     scanf("%d", &length);
+    while (length <= 0) {
+        printf("Please choose a positive integer\n");
+        if (scanf("%d", &length) == 1 && length > 0) {
+            break;
+        }
+        int i;
+        while ((i = getchar()) != '\n' && i != EOF); // clears buffer
+        /*
+        scanf("%d", &length);
+        if (length > 0) {
+            break;
+        }
+        else {
+            continue;
+        }
+        */
+    }
     for (int i = 0; i < length; i++) {
         int value = rand() % (2 - 1 + 1) + 1;
         printf("%d. What side will the coin land on? (Heads or Tails)\n", i+1);
@@ -194,7 +211,7 @@ void check_highscores(FILE *fp) {
     }
     if (fp != NULL) {
         fscanf(fp, "Highscore: %d", &highscore);
-        printf("Your current highscore is ");
+        printf("Your current normal mode highscore is ");
         printf("%d", highscore);
         printf("\nGood luck!\n");
     }
@@ -222,7 +239,7 @@ void main_menu(FILE *fp) {
         printf("1. Normal Mode\n");
         printf("2. 10 Guess Challenge\n");
         printf("3. Custom Length Guess challenge\n");
-        printf("4. Check Highscores\n");
+        printf("4. Check Highscore\n");
         printf("5. How to play\n");
         printf("6. Exit Game\n");
         printf("\n");
@@ -236,7 +253,7 @@ void main_menu(FILE *fp) {
             ten_guess(fp);
         }
         else if ((strcmp(selection, "3") == 0)) {
-            hundred_guess(fp);
+            custom_guess(fp);
         }
         else if ((strcmp(selection, "4") == 0)) {
             check_highscores(fp);
